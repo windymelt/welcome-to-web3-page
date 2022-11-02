@@ -8,8 +8,9 @@
  const loginTrigger = async () => {
      console.log("clicked login button");
      await defaultEvmStores.setProvider();
-     $web3.eth.getAccounts().then((acs) => { console.log(acs); goLoginCB(acs[0]) });
-     goPossession();
+     $web3.eth.getAccounts()
+          .then((acs) => { console.log(acs); goLoginCB(acs[0].toLowerCase()) })
+          .then(() => goPossession());
  }
 </script>
 

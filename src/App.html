@@ -6,20 +6,33 @@
   import { onMount } from 'svelte';
 
 	let openseaInfo;
+  let userHaveNft = false;
+  let walletAddr = undefined;
 
 	onMount(async () => {
     const contractAddr = '0x2953399124F0cBB46d2CbACD8A89cF0599974963';
     const itemId = '90321873922772702706889828053003954411909833063523571139972248233977405505636';
     // opensea API v1 is not compatible with MATIC. wait for v2.
     fetch(`https://api.opensea.io/api/v1/asset/${contractAddr}/${itemId}/owners?format=json`)
-  .then(res => { console.log(res); openseaInfo = res })
-  .catch(err => console.error(err));
+      .then(res => res.json())
+      .then(j => { openseaInfo = j })
+      .catch(err => console.error(err));
 	}); // TODO:paging
-  let walletAddr = undefined;
   const goLoginStatus = (addr) => {
     walletAddr = addr
   };
   const goPossession = () => {
+    console.log(`walletAddr : ${walletAddr}`);
+/*     console.log(openseaInfo); */
+    const ownerAddressList = openseaInfo['owners'].map(o => o['owner']['address'].toLowerCase());
+    console.log(ownerAddressList);
+    if (ownerAddressList.includes(walletAddr)) {
+      console.log('You have');
+      // TODO: show card
+    } else {
+      console.log("You don't have");
+      // TODO: show link, etc.
+    }
   };
 </script>
 
