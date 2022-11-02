@@ -1,0 +1,25 @@
+<script>
+ import { connected, web3, selectedAccount, chainId, chainData } from 'svelte-web3'
+ import { defaultEvmStores } from 'svelte-web3'
+
+ export let goLoginCB;
+ export let goPossession;
+
+ const loginTrigger = async () => {
+     console.log("clicked login button");
+     await defaultEvmStores.setProvider();
+     $web3.eth.getAccounts().then((acs) => { console.log(acs); goLoginCB(acs[0]) });
+     goPossession();
+ }
+</script>
+
+{#if !$connected}
+
+<p>MetaMask: 未接続</p>
+<button on:click={loginTrigger}>Login with MetaMask</button>
+
+{:else}
+
+<p>MetaMask: chain {$chainId} に接続</p>
+
+{/if}

@@ -1,5 +1,42 @@
 <script>
-  export let name;
+  import MetaMaskLogin from "./MetaMaskLogin.html";
+  import LoginStatus from "./LoginStatus.html";
+  import * as Marx from "marx-css";
+  import { web3 } from 'svelte-web3'
+  import { onMount } from 'svelte';
+
+	let openseaInfo;
+
+	onMount(async () => {
+    const contractAddr = '0x2953399124F0cBB46d2CbACD8A89cF0599974963';
+    const itemId = '90321873922772702706889828053003954411909833063523571139972248233977405505636';
+    // opensea API v1 is not compatible with MATIC. wait for v2.
+    fetch(`https://api.opensea.io/api/v1/asset/${contractAddr}/${itemId}/owners?format=json`)
+  .then(res => { console.log(res); openseaInfo = res })
+  .catch(err => console.error(err));
+	}); // TODO:paging
+  let walletAddr = undefined;
+  const goLoginStatus = (addr) => {
+    walletAddr = addr
+  };
+  const goPossession = () => {
+  };
 </script>
 
-<div>Hello {name}!</div>
+<svelte:head><!-- web3.js is not compatible with webpack/svelte... -->
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+</svelte:head>
+
+  <nav>
+    <ul>
+      <li><a href="/"><b>First</b></a></li>
+      <li><a href="/"><b>second</b></a></li>
+    </ul>
+  </nav>
+<main>
+  <center><h1>Welcome to #web3 特設ページ</h1></center>
+  <section>
+    <LoginStatus walletAddr={walletAddr} />
+    <MetaMaskLogin goLoginCB={goLoginStatus} goPossession={goPossession} />
+  </section>
+</main>

@@ -1,0 +1,18 @@
+<script>
+ import { connected, web3, selectedAccount, chainId, chainData } from 'svelte-web3'
+ import { defaultEvmStores } from 'svelte-web3'
+
+  async function Reverse(address) {
+    var lookup=address.toLowerCase().substr(2) + '.addr.reverse'
+    var ResolverContract=await web3.eth.ens.resolver(lookup);
+    var nh=namehash.hash(lookup);
+    var name=await ResolverContract.methods.name(nh).call()
+    return name;
+  }
+
+  export let walletAddr = undefined;
+</script>
+
+<div>
+  <p>ログインステータス: <span>{walletAddr}</span></p>
+</div>

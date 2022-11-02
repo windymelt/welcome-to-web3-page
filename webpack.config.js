@@ -37,6 +37,16 @@ module.exports = {
                 resolve: {
                     fullySpecified: false
                 }
+            },
+            {
+                test: /\.css/,
+                use: [
+                    "style-loader",
+                    {
+                        loader: "css-loader",
+                        options: { url: false }
+                    }
+                ]
             }
         ]
     },
@@ -44,5 +54,10 @@ module.exports = {
         static: {
             directory: path.resolve(__dirname, 'dist'),
         },
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+            "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+        }
     }
 };
