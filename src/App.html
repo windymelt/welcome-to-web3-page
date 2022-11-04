@@ -51,6 +51,14 @@
 <main>
   <center><h1>Welcome to #web3 特設ページ</h1></center>
   <section>
+      Web3.jsのテストページです。
+      <ul>
+          <li>このページは、MetaMaskを使ってログインすることができます</li>
+          <li>このページは、ログインによってウォレットアドレス(公開情報)を読み取ることができます</li>
+          <li>ログインによって勝手にトランザクションを開始することはありません</li>
+      </ul>
+  </section>
+  <section>
     <LoginStatus walletAddr={walletAddr} />
     <MetaMaskLogin goLoginCB={goLoginStatus} goPossession={goPossession} />
   </section>
