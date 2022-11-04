@@ -14,5 +14,5 @@
 </script>
 
 <div>
-  <p>ログインステータス: <span>{walletAddr}</span></p>
+  <p>ログインステータス: {#if $connected}<span>{walletAddr}</span>{:else}<span>ログインしていません</span>{/if}</p>
 </div>
